@@ -63,7 +63,6 @@ comment27.target=void\ showError(java.lang.String)
 comment27.text=\r\n\ Muestra\ un\ mensaje\ de\ error\ al\ usuario\ si\ el\ simulador\ esta\ visible.\r\n\ Solo\ se\ muestra\ si\ isVisible\ es\ true\ (requisito\ de\ usabilidad).\r\n\ \r\n\ @param\ message\ el\ mensaje\ a\ mostrar\r\n
 comment28.params=
 comment28.target=java.util.HashMap\ calculatePositions()
-comment28.text=\r\n\ Calcula\ las\ posiciones\ en\ cm\ (relativa\ al\ suelo)\ para\ cada\ item\ en\r\n\ stackOrder.\r\n\ Utiliza\ un\ modelo\ donde\ los\ items\ se\ apilan\ sobre\ la\ superficie\ de\r\n\ intersecci\u00F3n\r\n\ m\u00E1s\ alta.\r\n
 comment29.params=
 comment29.target=void\ redrawTower()
 comment29.text=\r\n\ Recalcula\ y\ dibuja\ la\ posicion\ de\ todos\ los\ elementos\ en\ el\ canvas.\r\n

@@ -5,17 +5,9 @@
  * @author Carlos Sanchez, Samuel Argalle
  * @version 2.0
  */
-public class Cup {
+public class Cup extends StackableItem {
 
-    private static final String[] COLORS = {
-            "red", "blue", "green", "yellow", "magenta", "orange", "cyan", "black"
-    };
-
-    private int number;
-    private int size;
     private int cupHeight;
-    private String color;
-    private boolean isVisible;
     private Rectangle base;
     private Rectangle leftWall;
     private Rectangle rightWall;
@@ -31,11 +23,8 @@ public class Cup {
      * @param size   píxeles por cm para la representación visual
      */
     public Cup(int number, int size) {
-        this.number = number;
-        this.size = size;
+        super(number, size);
         this.cupHeight = 2 * number - 1;
-        this.color = COLORS[number % COLORS.length];
-        this.isVisible = false;
         this.lid = null;
 
         int totalHeight = cupHeight * size;
@@ -66,35 +55,9 @@ public class Cup {
      * 
      * @return altura de la taza en cm
      */
+    @Override
     public int getHeight() {
         return cupHeight;
-    }
-
-    /**
-     * Retorna el número de la taza.
-     * 
-     * @return número de la taza
-     */
-    public int getNumber() {
-        return number;
-    }
-
-    /**
-     * Retorna el tamaño en píxeles por cm.
-     * 
-     * @return tamaño
-     */
-    public int getSize() {
-        return size;
-    }
-
-    /**
-     * Retorna el color de la taza.
-     * 
-     * @return color en String
-     */
-    public String getColor() {
-        return color;
     }
 
     /**
@@ -104,7 +67,9 @@ public class Cup {
      */
     public void setLid(Lid lid) {
         this.lid = lid;
-        this.lid.setAsCovering(true);
+        if (this.lid != null) {
+            this.lid.setAsCovering(true);
+        }
     }
 
     /**
@@ -144,29 +109,34 @@ public class Cup {
      * @param x posición horizontal en píxeles
      * @param y posición vertical en píxeles
      */
+    @Override
     public void setPosition(int x, int y) {
-        int totalWidth = number * size * 2;
-        int totalHeight = cupHeight * size;
+        int totalWidth = this.number * this.size * 2;
+        int totalHeight = cupHeight * this.size;
 
         base.moveHorizontal(x - baseX);
-        base.moveVertical((y + totalHeight - size) - baseY);
+        base.moveVertical((y + totalHeight - this.size) - baseY);
         baseX = x;
-        baseY = y + totalHeight - size;
+        baseY = y + totalHeight - this.size;
 
         leftWall.moveHorizontal(x - leftX);
         leftWall.moveVertical(y - leftY);
         leftX = x;
         leftY = y;
 
-        rightWall.moveHorizontal((x + totalWidth - size) - rightX);
+        rightWall.moveHorizontal((x + totalWidth - this.size) - rightX);
         rightWall.moveVertical(y - rightY);
-        rightX = x + totalWidth - size;
+        rightX = x + totalWidth - this.size;
         rightY = y;
+
+        this.xPosition = x;
+        this.yPosition = y;
     }
 
     /**
      * Hace visible la taza en el canvas.
      */
+    @Override
     public void makeVisible() {
         isVisible = true;
         base.makeVisible();
@@ -177,6 +147,7 @@ public class Cup {
     /**
      * Hace invisible la taza en el canvas.
      */
+    @Override
     public void makeInvisible() {
         isVisible = false;
         base.makeInvisible();

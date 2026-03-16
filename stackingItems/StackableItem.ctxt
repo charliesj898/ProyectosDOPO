@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=StackableItem
+comment0.text=\r\n\ Clase\ base\ abstracta\ para\ todos\ los\ elementos\ apilables\ de\ la\ torre.\r\n\ Provee\ estado\ comun\ como\ el\ numero,\ identificacion\ de\ color\ y\ control\ de\ visibilidad.\r\n\ \r\n\ @author\ Carlos\ Sanchez,\ Samuel\ Argalle\ \r\n\ @version\ 3.0\r\n
+comment1.params=number\ size
+comment1.target=StackableItem(int,\ int)
+comment1.text=\r\n\ Constructor\ base\ para\ elementos\ apilables\r\n\ \r\n\ @param\ number\ identificador\ numerico\ del\ elemento\r\n\ @param\ size\ \ \ tamano\ base\ de\ renderizado\ (pixeles\ por\ cm)\r\n
+comment2.params=
+comment2.target=int\ getNumber()
+comment2.text=\r\n\ Retorna\ el\ numero\ del\ item.\r\n\ \r\n\ @return\ numero\ identificador\r\n
+comment3.params=
+comment3.target=int\ getSize()
+comment3.text=\r\n\ Retorna\ la\ constante\ de\ escala\ (pixeles\ por\ cm).\r\n\ \r\n\ @return\ tamano\ base\r\n
+comment4.params=
+comment4.target=java.lang.String\ getColor()
+comment4.text=\r\n\ Retorna\ el\ color\ asignado\ a\ este\ item.\r\n\ \r\n\ @return\ nombre\ del\ color\r\n
+comment5.params=
+comment5.target=int\ getHeight()
+comment5.text=\r\n\ Retorna\ la\ altura\ del\ item\ en\ cm.\r\n\ Al\ ser\ abstracta,\ cada\ subclase\ (taza,\ tapa)\ define\ su\ propia\ regla\ de\ altura.\r\n\ \r\n\ @return\ altura\ en\ cm\r\n
+numComments=6

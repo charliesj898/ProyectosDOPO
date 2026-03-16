@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=TowerContest
+comment0.text=\r\n\ Motor\ matematico\ y\ solucionador\ del\ Problema\ J\ -\ Stacking\ Cups\ (ICPC\ 2025).\r\n\ \r\n\ La\ observacion\ clave\:\ los\ n\ cups\ tienen\ alturas\ {1,3,5,...,2n-1}.\r\n\ Poner\ un\ cup\ "encima"\ de\ la\ pila\ contribuye\ su\ altura\ completa\ (2i-1).\r\n\ Poner\ un\ cup\ "adentro"\ de\ uno\ mas\ grande\ contribuye\ 0\ (cabe\ dentro).\r\n\ La\ altura\ total\ \=\ suma\ de\ las\ alturas\ de\ los\ cups\ que\ queden\ "afuera"\r\n\ (stacked).\r\n\ Entonces\:\ encontrar\ un\ SUBSET\ de\ {1,3,...,2n-1}\ que\ sume\ exactamente\ h.\r\n\ La\ secuencia\ de\ salida\ intercala\ los\ cups\ del\ subset\ (apilados,\ de\ mayor\ a\r\n\ menor)\r\n\ y\ los\ cups\ fuera\ del\ subset\ (anidados,\ adentro\ de\ los\ apilados).\r\n\ \r\n\ @author\ Carlos\ Sanchez,\ Samuel\ Argalle\r\n\ @version\ 3.0\r\n
+comment1.params=n\ h
+comment1.target=java.lang.String\ solve(int,\ int)
+comment1.text=\r\n\ Resuelve\ el\ Problema\ J\ para\ n\ tazas\ y\ altura\ objetivo\ h.\r\n\ La\ salida\ es\ la\ secuencia\ de\ alturas\ (2i-1)\ de\ cada\ taza\ en\ orden\r\n\ de\ base\ a\ cima,\ o\ "impossible"\ si\ no\ existe\ solucion.\r\n\ \r\n\ @param\ n\ cantidad\ de\ tazas\r\n\ @param\ h\ altura\ objetivo\r\n\ @return\ String\ con\ las\ alturas\ separadas\ por\ espacio,\ o\ "impossible"\r\n
+comment2.params=n\ h
+comment2.target=java.lang.String\ solve(int,\ long)
+comment2.text=\r\n\ Sobrecarga\ principal\ que\ acepta\ h\ como\ long\ para\ inputs\ grandes.\r\n\ \r\n\ @param\ n\ cantidad\ de\ tazas\r\n\ @param\ h\ altura\ objetivo\ (long)\r\n\ @return\ String\ con\ las\ alturas\ separadas\ por\ espacio,\ o\ "impossible"\r\n
+comment3.params=n\ h
+comment3.target=void\ simulate(int,\ int)
+comment3.text=\r\n\ Simula\ graficamente\ la\ solucion\ usando\ la\ clase\ Tower.\r\n\ \r\n\ @param\ n\ cantidad\ de\ tazas\r\n\ @param\ h\ altura\ objetivo\r\n
+comment4.params=n\ h
+comment4.target=void\ simulate(int,\ long)
+comment4.text=\r\n\ Construye\ y\ anima\ graficamente\ la\ secuencia\ ganadora\ en\ el\ canvas.\r\n\ \r\n\ @param\ n\ cantidad\ de\ tazas\r\n\ @param\ h\ altura\ objetivo\ (long)\r\n
+comment5.params=m\ target
+comment5.target=java.util.List\ buildSubset(int,\ long)
+comment5.text=\r\n\ Busca\ greedy\ descendente\ un\ subset\ de\ cups\ {1..m}\ cuya\ suma\ de\r\n\ alturas\ (2i-1)\ sea\ exactamente\ target.\r\n\ Usa\ memoizacion\ para\ verificar\ alcanzabilidad\ antes\ de\ comprometerse.\r\n\ \r\n\ @param\ m\ \ \ \ \ \ indice\ maximo\ de\ cup\ disponible\r\n\ @param\ target\ suma\ objetivo\r\n\ @return\ lista\ de\ numeros\ de\ cup\ en\ el\ subset,\ o\ null\ si\ imposible\r\n
+comment6.params=m\ target
+comment6.target=boolean\ canAchieve(int,\ long)
+comment6.text=\r\n\ DP\ memoizado\:\ determina\ si\ existe\ un\ subset\ de\ cups\ {1..m}\r\n\ cuya\ suma\ de\ alturas\ sea\ exactamente\ target.\r\n\ Complejidad\:\ O(n\ *\ n^2)\ \=\ O(n^3)\ tiempo,\ O(n^3)\ espacio.\r\n\ Suficiente\ dado\ que\ el\ problema\ limita\ n\ <\=\ 200000\ en\ teoria,\r\n\ pero\ para\ el\ simulador\ trabajamos\ con\ n\ <\=\ 20.\r\n\ \r\n\ @param\ m\ \ \ \ \ \ cups\ disponibles\ (1..m)\r\n\ @param\ target\ suma\ objetivo\r\n\ @return\ true\ si\ el\ subset\ existe\r\n
+comment7.params=n\ stackedCups
+comment7.target=java.lang.String\ buildOutputSequence(int,\ java.util.List)
+comment7.text=\r\n\ Construye\ la\ secuencia\ de\ salida\ del\ problema\:\r\n\ Los\ cups\ del\ subset\ (stacked)\ se\ intercalan\ con\ los\ cups\ fuera\ del\ subset\r\n\ (nested)\ de\ forma\ que\ la\ simulacion\ fisica\ sea\ valida.\r\n\ \r\n\ Regla\ de\ intercalacion\:\r\n\ -\ Los\ cups\ FUERA\ del\ subset\ (anidados)\ se\ ubican\ DESPUES\ del\ cup\ del\r\n\ subset\ mas\ grande\ que\ los\ contiene,\ de\ mayor\ a\ menor.\r\n\ -\ Los\ cups\ del\ subset\ van\ en\ orden\ descendente\ (mayor\ abajo,\ menor\ arriba).\r\n\ \r\n\ @param\ n\ \ \ \ \ \ \ \ \ \ \ total\ de\ cups\r\n\ @param\ stackedCups\ lista\ de\ cups\ del\ subset\ (los\ apilados)\r\n\ @return\ String\ con\ las\ alturas\ en\ orden\ de\ base\ a\ cima\r\n
+numComments=8

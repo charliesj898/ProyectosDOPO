@@ -6,20 +6,11 @@
  * @author Carlos Sanchez, Samuel Argalle
  * @version 2.0
  */
-public class Lid {
+public class Lid extends StackableItem {
 
-    private static final String[] COLORS = {
-            "red", "blue", "green", "yellow", "magenta", "orange", "cyan", "black"
-    };
     private static final int STANDARD_HEIGHT = 1;
 
     private int cupNumber;
-    private int size;
-    private int number;
-    private String color;
-    private int xPosition;
-    private int yPosition;
-    private boolean isVisible;
     private boolean isCovering;
     private Rectangle shape;
     private Rectangle innerLine;
@@ -32,21 +23,20 @@ public class Lid {
      * @param color     el color de la tapa (debe ser igual al de su taza)
      */
     public Lid(int cupNumber, int size) {
+        super(cupNumber, size);
         this.cupNumber = cupNumber;
-        this.size = size;
-        this.number = cupNumber;
-        this.color = COLORS[cupNumber % COLORS.length];
-        this.xPosition = 70;
-        this.yPosition = 15;
-        this.isVisible = false;
         this.isCovering = false;
+        
         this.shape = new Rectangle();
-        shape.changeColor(color);
+        shape.changeColor(this.color);
         shape.changeSize(STANDARD_HEIGHT * size, cupNumber * size * 2);
 
         this.innerLine = new Rectangle();
         innerLine.changeColor("black");
         innerLine.changeSize(2, cupNumber * size * 2); // 2 pixeles de grosor para la linea negra central
+        // Desplazala hacia abajo matematicamente UNA VEZ durante su creacion para que su origen de coordenadas
+        // local encaje perfectamente en el centro del rectangulo de la tapa.
+        innerLine.moveVertical((STANDARD_HEIGHT * size) / 2 - 1);
     }
 
     /**
@@ -54,6 +44,7 @@ public class Lid {
      * 
      * @return altura de la tapa
      */
+    @Override
     public int getHeight() {
         return STANDARD_HEIGHT;
     }
@@ -68,47 +59,29 @@ public class Lid {
     }
 
     /**
-     * Retorna el número de la tapa.
-     * 
-     * @return número de la tapa
-     */
-    public int getNumber() {
-        return number;
-    }
-
-    /**
-     * Retorna el tamaño en píxeles por cm.
-     * 
-     * @return tamaño
-     */
-    public int getSize() {
-        return size;
-    }
-
-    /**
-     * Retorna el color de la tapa.
-     * 
-     * @return color en String
-     */
-    public String getColor() {
-        return color;
-    }
-
-    /**
      * Establece la posición de la tapa en el canvas.
      * 
      * @param x posición horizontal en píxeles
      * @param y posición vertical en píxeles
      */
+    @Override
     public void setPosition(int x, int y) {
+        // Calcula los deltas basados en la memoria de la posicion interna anterior
         int dx = x - this.xPosition;
         int dy = y - this.yPosition;
+        
+        // Actualiza la posicion interna verdadera
         this.xPosition = x;
         this.yPosition = y;
+        
+        // Mueve la figura principal usando el delta
         shape.moveHorizontal(dx);
         shape.moveVertical(dy);
+        
+        // Mueve la linea interior exactamente junto con la figura principal por deltas identicos.
+        // Mantiene su centro vertical perfecto porque su origen fue desplazado durante la construccion.
         innerLine.moveHorizontal(dx);
-        innerLine.moveVertical(dy + (STANDARD_HEIGHT * size) / 2 - 1);
+        innerLine.moveVertical(dy);
     }
 
     /**
@@ -130,6 +103,7 @@ public class Lid {
     /**
      * Hace visible la tapa en el canvas.
      */
+    @Override
     public void makeVisible() {
         isVisible = true;
         shape.makeVisible();
@@ -140,6 +114,7 @@ public class Lid {
     /**
      * Hace invisible la tapa en el canvas.
      */
+    @Override
     public void makeInvisible() {
         isVisible = false;
         shape.makeInvisible();
