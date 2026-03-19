@@ -4,40 +4,57 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Solucionador del Problema J - Stacking Cups (ICPC 2025).
+ * Resuelve el Problema J (Stacking Cups) de la maraton ICPC 2025.
  * 
- * Algoritmo recursivo de dos casos:
- * Caso A: pre-stack ascendente + cup n encima -> h = sum(pre-stack) + (2n-1)
- * Caso B: cup n como contenedor primero, resolver recursivamente n-1 cups para h-1
+ * Dadas n tazas con alturas 1, 3, 5, ..., (2n-1), encuentra en que
+ * orden apilarlas para lograr exactamente la altura h.
+ * 
+ * El algoritmo usa dos estrategias (casos) de forma recursiva:
+ * Caso A: coloca algunas tazas en orden ascendente, luego la taza n
+ * encima, y el resto queda anidado.
+ * Caso B: coloca la taza n como contenedor (primero), y resuelve
+ * recursivamente para n-1 tazas con altura h-1.
  * 
  * @author Carlos Sanchez, Samuel Argalle
  * @version 3.0
  */
 public class TowerContest {
 
+    // Guarda la torre de la ultima simulacion para poder limpiarla
+    private Tower lastTower;
+
     /**
-     * Sobrecarga de conveniencia para llamar con int.
+     * Resuelve el problema para n tazas y altura objetivo h.
+     * Permite recibir h como int por conveniencia desde BlueJ.
+     * 
+     * @param n cantidad de tazas
+     * @param h altura objetivo
+     * @return las alturas de cada taza en orden, o "impossible"
      */
     public String solve(int n, int h) {
         return solve(n, (long) h);
     }
 
     /**
-     * Resuelve el problema: encuentra un orden de n tazas que produzca altura h.
+     * Resuelve el problema para n tazas y altura objetivo h (como long).
+     * Se usa long porque en el problema original h puede llegar hasta 4x10^10.
      * 
-     * @param n cantidad de tazas (alturas 1, 3, ..., 2n-1)
+     * @param n cantidad de tazas
      * @param h altura objetivo
-     * @return alturas separadas por espacio, o "impossible"
+     * @return las alturas de cada taza separadas por espacio, o "impossible"
      */
     public String solve(int n, long h) {
         long minH = 2L * n - 1;
         long maxH = (long) n * n;
+
+        // Fuera del rango posible: imposible
         if (h < minH || h > maxH) {
             return "impossible";
         }
 
-        // Caso A: pre-stack S ascendente, luego cup n, luego resto descendente
-        // h = sum_heights(S) + (2n-1), donde sum_heights(S) = delta
+        // Caso A: poner algunas tazas ascendentes antes de la taza n
+        // La diferencia (delta) entre h y la altura minima es lo que
+        // debe sumar el grupo ascendente
         long delta = h - minH;
         if (canFormSum(n - 1, delta)) {
             List<Integer> preStack = buildSubset(n - 1, delta);
@@ -46,7 +63,10 @@ public class TowerContest {
             }
         }
 
-        // Caso B: cup n primero (contenedor), resolver n-1 cups para h-1
+        // Caso B: la taza n va primero como contenedor.
+        // Las n-1 tazas restantes se acomodan adentro para
+        // lograr una sub-torre de altura h-1 (porque el piso
+        // de la taza n tiene 1 cm de grosor).
         if (n > 1 && h - 1 >= 2L * (n - 1) - 1 && h - 1 <= (long) (n - 1) * (n - 1)) {
             String sub = solve(n - 1, h - 1);
             if (!sub.equals("impossible")) {
@@ -58,20 +78,27 @@ public class TowerContest {
     }
 
     /**
-     * Sobrecarga de conveniencia para simulate con int.
+     * Simula graficamente la solucion dibujandola en el canvas.
+     * Permite recibir h como int por conveniencia desde BlueJ.
+     * 
+     * @param n cantidad de tazas
+     * @param h altura objetivo
      */
     public void simulate(int n, int h) {
         simulate(n, (long) h);
     }
 
     /**
-     * Simula graficamente la solucion usando la clase Tower.
+     * Simula graficamente la solucion dibujandola en el canvas.
+     * Si la solucion existe, crea una torre y va agregando las tazas
+     * una por una con una pausa animada.
      * 
      * @param n cantidad de tazas
      * @param h altura objetivo
      */
     public void simulate(int n, long h) {
         String answer = solve(n, h);
+
         if (answer.equals("impossible")) {
             JOptionPane.showMessageDialog(null,
                     "La altura " + h + " es imposible para " + n + " tazas.\n"
@@ -79,17 +106,27 @@ public class TowerContest {
                     "Imposible", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
         if (n > 20) {
             JOptionPane.showMessageDialog(null,
                     "Solucion: " + answer.substring(0, Math.min(answer.length(), 200))
                             + (answer.length() > 200 ? "..." : "")
-                            + "\n(N muy grande para el canvas grafico.)",
+                            + "\n(N es muy grande para dibujarlo en el canvas.)",
                     "Solucion", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
+
+        // Limpiar la simulacion anterior si existe
+        if (lastTower != null) {
+            lastTower.makeInvisible();
+        }
+
         String[] parts = answer.split(" ");
         final Tower simTower = new Tower(n * 3 + 20, (int) ((long) n * n) + 10);
+        lastTower = simTower;
         simTower.makeVisible();
+
+        // Hilo separado para animar la construccion sin congelar la interfaz
         new Thread(() -> {
             for (String str : parts) {
                 int cupNum = (Integer.parseInt(str) + 1) / 2;
@@ -109,8 +146,15 @@ public class TowerContest {
     // ---- Metodos privados ----
 
     /**
-     * Verifica si target es alcanzable como subset sum de {1,3,...,2m-1}.
-     * Los unicos huecos son 2 y m*m-2 (para m >= 2).
+     * Verifica si es posible formar la suma indicada usando un subconjunto
+     * de las alturas {1, 3, 5, ..., 2m-1}.
+     * 
+     * Las unicas sumas imposibles dentro del rango son exactamente 2
+     * y m*m - 2 (para m mayor o igual a 2).
+     * 
+     * @param m      cantidad de tazas disponibles (1 a m)
+     * @param target suma que se quiere alcanzar
+     * @return true si la suma es alcanzable
      */
     private boolean canFormSum(int m, long target) {
         if (target == 0)
@@ -122,20 +166,28 @@ public class TowerContest {
             return false;
         if (m == 1)
             return target == 1;
+        // Los unicos dos valores imposibles dentro del rango
         if (target == 2 || target == maxSum - 2)
             return false;
         return true;
     }
 
     /**
-     * Construye greedily un subset de cups {1..m} cuya suma de alturas = target.
-     * Retorna lista de numeros de cup en el subset (ordenada ascendente).
+     * Construye un subconjunto de tazas {1..m} cuya suma de alturas
+     * sea exactamente target. Usa un enfoque greedy descendente:
+     * intenta incluir la taza mas grande primero y verifica que el
+     * resto siga siendo alcanzable.
+     * 
+     * @param m      cantidad de tazas disponibles
+     * @param target suma objetivo
+     * @return lista de numeros de taza del subconjunto (ascendente), o null
      */
     private List<Integer> buildSubset(int m, long target) {
         if (target == 0)
             return new ArrayList<>();
         if (m <= 0 || !canFormSum(m, target))
             return null;
+
         List<Integer> result = new ArrayList<>();
         long rem = target;
         for (int i = m; i >= 1; i--) {
@@ -154,18 +206,27 @@ public class TowerContest {
     }
 
     /**
-     * Construye la secuencia de salida para Caso A:
-     * pre-stack ascendente + cup n + resto descendente.
+     * Arma la secuencia de salida para el Caso A.
+     * Formato: tazas del pre-stack en orden ascendente de altura,
+     * luego la taza n, luego las tazas restantes en orden descendente
+     * (estas quedan anidadas dentro de la taza n).
+     * 
+     * @param n        total de tazas
+     * @param preStack tazas que van antes de la taza n (ascendente)
+     * @return las alturas en el orden correcto separadas por espacio
      */
     private String buildCaseA(int n, List<Integer> preStack) {
         StringBuilder sb = new StringBuilder();
-        // Pre-stack en orden ascendente (alturas)
+
+        // Tazas del pre-stack en orden ascendente
         for (int cup : preStack) {
             sb.append(2 * cup - 1).append(" ");
         }
-        // Cup n
+
+        // Taza n (la mas grande)
         sb.append(2 * n - 1).append(" ");
-        // Resto en orden descendente (nested)
+
+        // Tazas restantes en orden descendente (anidadas)
         boolean[] inPreStack = new boolean[n];
         for (int cup : preStack) {
             inPreStack[cup] = true;
