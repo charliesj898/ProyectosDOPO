@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=EvilLid
+comment0.text=\r\n\ Representa\ una\ tapa\ malvada\ (Evil\ Lid)\ en\ el\ simulador.\r\n\ Hereda\ de\ Lid.\ Cuando\ logra\ cubrir\ a\ su\ taza\ exacta,\r\n\ actua\ como\ una\ trampa\:\ se\ autodestruye\ junto\ con\ su\ taza,\r\n\ eliminando\ ambos\ elementos\ de\ la\ torre\ permanentemente.\r\n\ \r\n\ Visualmente\ se\ distingue\ por\ un\ triangulo\ negro\ centrado\ sobre\ ella.\r\n\ \r\n\ @author\ Carlos\ Sanchez,\ Samuel\ Argalle\r\n\ @version\ 3.0\r\n
+comment1.params=number\ size
+comment1.target=EvilLid(int,\ int)
+comment1.text=\r\n\ Crea\ una\ EvilLid\ con\ el\ numero\ y\ tamano\ dados.\r\n\ \r\n\ @param\ number\ el\ numero\ de\ la\ tapa\ (y\ de\ su\ taza\ victima)\r\n\ @param\ size\ \ \ pixeles\ por\ cm\ para\ la\ representacion\r\n
+comment2.params=
+comment2.target=StackableItem\ createCopy()
+comment3.params=x\ y
+comment3.target=void\ setPosition(int,\ int)
+comment4.params=
+comment4.target=void\ makeVisible()
+comment5.params=
+comment5.target=void\ makeInvisible()
+comment6.params=items
+comment6.target=void\ onAfterPlaced(java.util.ArrayList)
+comment6.text=\r\n\ Si\ esta\ tapa\ acaba\ de\ cubrir\ a\ su\ taza\ exacta,\ se\ autodestruye\r\n\ junto\ con\ dicha\ taza,\ eliminando\ ambos\ de\ la\ torre.\r\n
+numComments=7

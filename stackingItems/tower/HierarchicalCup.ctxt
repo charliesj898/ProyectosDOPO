@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=HierarchicalCup
+comment0.text=\r\n\ Taza\ jerarquica.\ Si\ toca\ el\ suelo\ de\ la\ torre\ (Y\=0),\ no\ puede\ ser\ eliminada.\r\n\ Se\ distingue\ visualmente\ por\ un\ circulo\ blanco\ en\ su\ pared\ izquierda.\r\n\r\n\ @author\ Carlos\ Sanchez,\ Samuel\ Argalle\r\n\ @version\ 3.0\r\n
+comment1.params=number\ size
+comment1.target=HierarchicalCup(int,\ int)
+comment2.params=
+comment2.target=StackableItem\ createCopy()
+comment3.params=x\ y
+comment3.target=void\ setPosition(int,\ int)
+comment4.params=
+comment4.target=void\ makeVisible()
+comment5.params=
+comment5.target=void\ makeInvisible()
+comment6.params=contactY
+comment6.target=boolean\ canBeRemoved(int)
+numComments=7

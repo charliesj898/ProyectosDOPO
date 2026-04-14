@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=TowerATest
+comment0.text=\r\n\ Pruebas\ de\ aceptacion\ del\ Simulador\ de\ Torre\ de\ Apilamiento.\r\n\ Son\ pruebas\ visuales\ e\ interactivas\:\ muestran\ el\ canvas,\ describen\r\n\ lo\ ocurrido\ y\ piden\ confirmacion\ al\ usuario\ al\ final.\r\n\r\n\ @author\ Carlos\ Sanchez,\ Samuel\ Argalle\r\n\ @version\ 4.0\r\n
+comment1.params=
+comment1.target=void\ acceptSimuladorPolimorfico()
+comment1.text=\r\n\ Prueba\ 1\:\ Simulador\ Polimorfico.\r\n\ Demuestra\ visualmente\ FearfulLid\ (rechaza\ sin\ taza),\r\n\ OpenerCup\ (destruye\ tapas)\ y\ EvilLid\ (elimina\ su\ par).\r\n
+comment2.params=
+comment2.target=void\ acceptAlgoritmoMaraton()
+comment2.text=\r\n\ Prueba\ 2\:\ Algoritmo\ de\ Maraton\ (TowerContest).\r\n\ Verifica\ que\ el\ solucionador\ encuentra\ el\ orden\ correcto\ para\ n\=5,\ h\=17\r\n\ y\ lo\ anima\ en\ el\ canvas.\ Tambien\ verifica\ casos\ imposibles.\r\n
+numComments=3

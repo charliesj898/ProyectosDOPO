@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=FearfulLid
+comment0.text=\r\n\ Tapa\ miedosa.\ Solo\ entra\ si\ su\ taza\ ya\ esta\ en\ la\ torre.\r\n\ Si\ esta\ cubriendo\ a\ su\ taza,\ no\ puede\ ser\ eliminada.\r\n\ Se\ distingue\ visualmente\ por\ un\ circulo\ blanco\ centrado\ en\ la\ tapa.\r\n\r\n\ @author\ Carlos\ Sanchez,\ Samuel\ Argalle\r\n\ @version\ 3.0\r\n
+comment1.params=number\ size
+comment1.target=FearfulLid(int,\ int)
+comment2.params=
+comment2.target=StackableItem\ createCopy()
+comment3.params=x\ y
+comment3.target=void\ setPosition(int,\ int)
+comment4.params=
+comment4.target=void\ makeVisible()
+comment5.params=
+comment5.target=void\ makeInvisible()
+comment6.params=isCoveringExactMaster
+comment6.target=boolean\ canBeRemoved(boolean)
+comment7.params=hasMasterCup
+comment7.target=boolean\ canEnterTower(boolean)
+numComments=8

@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=OpenerCup
+comment0.text=\r\n\ Representa\ una\ taza\ rompedora\ (Opener\ Cup)\ en\ el\ simulador.\r\n\ Hereda\ de\ Cup\ pero\ cuenta\ con\ la\ propiedad\ especial\ de\ romper\r\n\ cualquier\ tapa\ (Lid)\ que\ obstaculice\ su\ caida,\ destruyendola\ al\ contacto.\r\n\ Visualmente,\ se\ distingue\ por\ un\ triangulo\ blanco\ centrado\ en\ su\ base.\r\n\ \r\n\ @author\ Carlos\ Sanchez,\ Samuel\ Argalle\r\n\ @version\ 3.0\r\n
+comment1.params=number\ size
+comment1.target=OpenerCup(int,\ int)
+comment1.text=\r\n\ Crea\ una\ OpenerCup\ con\ el\ numero\ y\ tamano\ dados.\r\n\ \r\n\ @param\ number\ el\ numero\ de\ la\ taza\r\n\ @param\ size\ \ \ pixeles\ por\ cm\ para\ la\ representacion\r\n
+comment2.params=
+comment2.target=StackableItem\ createCopy()
+comment3.params=x\ y
+comment3.target=void\ setPosition(int,\ int)
+comment4.params=
+comment4.target=void\ makeVisible()
+comment5.params=
+comment5.target=void\ makeInvisible()
+comment6.params=items\ tower
+comment6.target=void\ executeInsertionEffect(java.util.ArrayList,\ Tower)
+numComments=7
